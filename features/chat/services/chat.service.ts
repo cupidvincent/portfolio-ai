@@ -1,4 +1,3 @@
-import { readPDF } from "@/lib/pdf";
 import { ABOUT_ME } from "../../../constants/answers";
 import { openai } from "../../../lib/openai";
 
@@ -8,9 +7,9 @@ export async function sendMessageToAI(message: string) {
   console.log("Sending message to AI:", message);
 
   // cache so we don’t read file every request
-  if (!cachedResume) {
-    cachedResume = await readPDF("data/resume.pdf");
-  }
+  //   if (!cachedResume) {
+  //     cachedResume = await readPDF("data/resume.pdf");
+  //   }
   const response = await openai.chat.completions.create({
     model: "openai/gpt-oss-20b",
     messages: [
@@ -22,7 +21,7 @@ export async function sendMessageToAI(message: string) {
             You must ONLY answer questions based on the information below.
 
             === ABOUT VINCENT ===
-            ${cachedResume}
+            ${ABOUT_ME}
 
             RULES:
             - Do NOT make up information
